@@ -1,17 +1,11 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package trabsd;
 
-import java.rmi.Naming;
+
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 
 /**
  *
- * @author matheus
+ * @authors leonardo, matheus e rafael
  */
 public class ArquivosServer {
     
@@ -19,7 +13,7 @@ public class ArquivosServer {
     ArquivosServer(){
     
         try{
-            System.setProperty("java.rmi.server.hostname", "192.168.1.107");
+            System.setProperty("java.rmi.server.hostname", "127.0.0.1");
             Registry r = LocateRegistry.createRegistry(1099);
             Arquivos a = new ArquivosImple();
             r.rebind("ArquivosService", a);

@@ -1,17 +1,12 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package trabsd;
+import java.io.IOException;
 
 /**
  *
- * @author matheus
+ * @authors leonardo, matheus e rafael
  */
 public interface Controle {
     
-    public void leitor() throws InterruptedException;
+    public void leitor(int numArq, int numClient, int inicio) throws InterruptedException, IOException;
     
-    public void escritor() throws InterruptedException;
+    public void escritor(int numArq, int numClient, String texto) throws InterruptedException, IOException;
 }

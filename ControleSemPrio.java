@@ -1,15 +1,11 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package trabsd;
 
+
+import java.io.IOException;
 import java.util.concurrent.Semaphore;
 
 /**
  *
- * @author matheus
+ * @authors leonardo, matheus e rafael
  */
 public class ControleSemPrio implements Controle{
     private int qtdLeitores;
@@ -26,26 +22,35 @@ public class ControleSemPrio implements Controle{
         escrita = new Semaphore(1);
     }
     
-    public void leitor() throws InterruptedException{
+    @Override
+    public void leitor(int numArquivo, int numClient, int inicio) throws InterruptedException, IOException{
         this.ordem.acquire();
+        this.ordem.release();
         this.acessoQtdLeitores.acquire();
         this.qtdLeitores++;
         if(this.qtdLeitores == 1)this.escrita.acquire();
+        //this.qtdLeitores++;
+        
         this.acessoQtdLeitores.release();
         
-        this.documento.ler(1, 2);
+        
+        this.documento.ler(numArquivo, numClient, inicio, qtdLeitores);
         
         this.acessoQtdLeitores.acquire();
         this.qtdLeitores--;
         if(this.qtdLeitores == 0)this.escrita.release();
         this.acessoQtdLeitores.release();
-        this.ordem.release();
+        
     }
     
-    public void escritor() throws InterruptedException{
+    @Override
+    public void escritor(int numArquivo, int numClient, String texto) throws InterruptedException, IOException{
         this.ordem.acquire();
         this.escrita.acquire();
-        this.documento.escrever(1, "texto");
+        
+        
+        this.documento.escrever(numArquivo, numClient, texto, qtdLeitores);
+        
         this.escrita.release();
         this.ordem.release();
     }

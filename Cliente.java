@@ -1,15 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package trabsd;
-
 import java.util.Random;
 
 /**
  *
- * @author matheus
+ * @authors leonardo, matheus e rafael
  */
 public class Cliente {
     
@@ -21,14 +14,16 @@ public class Cliente {
     
     
     public void realizaRequisicao(){
-        int a = new Random().nextInt(100);
-        int numArq = new Random().nextInt(3);
+        Random r = new Random();
+        int a = r.nextInt(100);
+        int numArq = r.nextInt(3);
         
-        if(a < 30){
-            new Escrita(this.id, numArq, 1, "TEXT");
+        if(a < 40){
+            new Escrita(this.id, numArq, "\nLinha Nova");
         }
         else{
-            new Leitura(this.id, numArq, 1, 10);
+            int pos = r.nextInt(30);
+            new Leitura(this.id, numArq, pos);
         }
     }
     
